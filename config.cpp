@@ -39,7 +39,7 @@
     };
 
     #if CONFIG_DS18W20_ENABLED
-        #include "core0/libs/one_wire/api/one_wire.h"
+        #include "core0/libs/build_in/one_wire/api/one_wire.h"
     #endif
     
     
