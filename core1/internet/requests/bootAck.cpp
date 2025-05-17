@@ -1,7 +1,8 @@
-#ifndef boot_ack_f
-#define boot_ack_f
+#ifndef BOOT_ACK_REQUEST_F
+#define BOOT_ACK_REQUEST_F
 
 #include "../request.cpp"
+#include "../../../config.cpp"
 
 namespace INTERNET {
 
@@ -9,7 +10,7 @@ namespace INTERNET {
         #if INTERNET_PRINT_DEBUG
             printf("bootack\n");
         #endif
-        simple_send_data("/newSystem/traffic_control.php", "&action=bootAck");
+        simple_send_data(CONFIG::SERVER_MAIN_PATH, "&action=bootAck");
     }
 }
 #endif

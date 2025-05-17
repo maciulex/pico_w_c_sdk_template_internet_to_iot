@@ -46,10 +46,7 @@ Internet
         urls for build in actions: bootack, time, ping, raport is defined by deafult:  
             "/newSystem/traffic_control.php"  
             Location:   
-                core1/internet/requests/bootAck.cpp     (?action=bootAck)  
-                core1/internet/requests/getTime.cpp     (?action=getTime)  
-                core1/internet/requests/ping.cpp        (?action=ping)  
-                core1/internet/requests/report.cpp      (?action=report)  
+                config.cpp: variable: std::string SERVER_MAIN_PATH
   
     RESPONSE TEXT:  
   

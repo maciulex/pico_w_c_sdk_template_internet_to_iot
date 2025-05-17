@@ -1,7 +1,8 @@
-#ifndef ping_f
-#define ping_f
+#ifndef PING_REQUEST_F
+#define PING_REQUEST_F
 
 #include "../request.cpp"
+#include "../../../config.cpp"
 
 namespace INTERNET {
 
@@ -9,7 +10,7 @@ namespace INTERNET {
         #if INTERNET_PRINT_DEBUG
             printf("\nGET PING\n");
         #endif
-        simple_send_data("/newSystem/traffic_control.php", "&action=ping");
+        simple_send_data(CONFIG::SERVER_MAIN_PATH, "&action=ping");
     }
 
 }

@@ -9,7 +9,7 @@ namespace INTERNET {
         #if INTERNET_PRINT_DEBUG
             printf("\nGET REPORT\n");
         #endif
-        simple_send_data("/newSystem/traffic_control.php", "&action=report");
+        simple_send_data(CONFIG::SERVER_MAIN_PATH, "&action=report");
     }
 
 }

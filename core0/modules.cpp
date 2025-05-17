@@ -1,3 +1,6 @@
+#ifndef MODULES_BUILD_IN_F
+#define MODULES_BUILD_IN_F
+
 #include "../config.cpp"
 #include "modules_rutine.cpp"
 
@@ -56,3 +59,4 @@ namespace submodules{
     
     }
 }   
+#endif

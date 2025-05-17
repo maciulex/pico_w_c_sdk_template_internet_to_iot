@@ -48,9 +48,10 @@
         const uint8_t PICO_ID  = 7;
         const char*  PICO_DESC = "c_test_dev";
         std::string PICO_REQUEST_HEADER= "?pico_id="+std::to_string(PICO_ID)+"&pico_desc="+PICO_DESC;
-
-        std::string SERVER_IP   = "192.168.1.2";
-        uint16_t    SERVER_PORT = 80;
+        
+        std::string SERVER_MAIN_PATH = "/newSystem/traffic_control.php";
+        std::string SERVER_IP        = "192.168.1.2";
+        uint16_t    SERVER_PORT      = 80;
 
         bool TIME_INITIETED = false;
 

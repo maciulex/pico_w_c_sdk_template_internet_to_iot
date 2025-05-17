@@ -1,5 +1,5 @@
-#ifndef time_f
-#define time_f
+#ifndef TIME_REQUEST_F
+#define TIME_REQUEST_F
 
 #include "../../../config.cpp"
 #include "../request.cpp"
@@ -8,6 +8,8 @@
 #include "pico/stdlib.h"
 #include "pico/util/datetime.h"
 #include "pico/types.h"
+
+#include "../../../config.cpp"
 
 namespace INTERNET {
 
@@ -81,7 +83,7 @@ namespace INTERNET {
             printf("\nGET TIME\n");
         #endif
 
-        simple_send_data("/newSystem/traffic_control.php", "&action=getTime", (void *)get_time_callback);
+        simple_send_data("/newSystem/traffic_control.php", CONFIG::SERVER_MAIN_PATH, (void *)get_time_callback);
     }
 
 }
