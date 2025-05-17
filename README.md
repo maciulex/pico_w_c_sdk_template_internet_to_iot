@@ -1,5 +1,5 @@
 # internet
-
+```
 //IN PROGRES OF ACTIVE CREATION  
 //YOU COULD SAY IT IS EARLY ACCESS  
    
@@ -19,7 +19,7 @@ Internet
     - bootack: Device on boot sends to server that it has booted and proceding with operation  
     - time:    Device aslo on boot (by deafult) request from same sever with normal http/text time and date to   initialize RTC
     - Ping:    Every X min of time (def: 1min)(configured in config.cpp - uint8_t REPORT_TIME) pings server to show   that it is indeed still working
-    - Raport:  Every X min of time (def: 1min)(configured in config.cpp - uint8_t PING_TIME  ) sends to server some   data whathewer you want // in time of writing not operating to full extent
+    - Raport:  Every X min of time (def: 1min)(configured in config.cpp - uint8_t PING_TIME  ) sends to server some   data whathewer you want // in time of writing not operating to full extent  
     build in tasks: bootack, time, ping are by deafult executed  
   
     Network credentials:  
@@ -114,3 +114,4 @@ There is massive room to improve and add multiple of features, but honestly i de
 let alone use this template so i really dont know how much will and work i should put to document, explain, and go   above what i really need to meet somthing that someone could use
   
 //this file will be later redacted and rewritten by chatgpt as i suck at english after 13y of education   
+```
