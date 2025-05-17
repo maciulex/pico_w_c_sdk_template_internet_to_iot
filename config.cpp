@@ -3,8 +3,8 @@
 
 #include <string>
 #include <cstdint>
-#ifndef CONFIG_FILE
-    #define CONFIG_FILE
+#ifndef CONFIG_FILE_F
+#define CONFIG_FILE_F
 
     #define I2C_PROTOCOL_DEFINITION
     #define I2C_PORT i2c0
@@ -15,14 +15,14 @@
     #define FALSE 0
     #define TRUE  1
 
-    #define INTERNET_ENABLE_AUTO_RAPORT FALSE
+    #define INTERNET_ENABLE_AUTO_RAPORT FALSE //Yet to be implemented
 
-    #define CONFIG_HARMONOGRAM_ENABLED FALSE
-    #define CONFIG_DISPLAY_ENABLED     FALSE
-    #define CONFIG_DHT20_ENABLED       FALSE
-    #define CONFIG_BMP280_ENABLED      FALSE
+    #define CONFIG_HARMONOGRAM_ENABLED FALSE  //Yet to be implemented
+    #define CONFIG_DISPLAY_ENABLED     FALSE  //Yet to be implemented
+    #define CONFIG_DHT20_ENABLED       FALSE  //Yet to be implemented
+    #define CONFIG_BMP280_ENABLED      FALSE  //Yet to be implemented
 
-    #define CONFIG_DS18W20_ENABLED     FALSE
+    #define CONFIG_DS18W20_ENABLED     FALSE  //Yet to be implemented
     #define CONFIG_ONE_WIRE_PIN 15
 
 
@@ -51,6 +51,8 @@
 
         std::string SERVER_IP   = "192.168.1.2";
         uint16_t    SERVER_PORT = 80;
+
+        bool TIME_INITIETED = false;
 
         bool config_hight_button        = false;
 

@@ -1,6 +1,7 @@
 #ifndef time_f
 #define time_f
 
+#include "../../../config.cpp"
 #include "../request.cpp"
 #include <stdio.h>
 #include "hardware/rtc.h"
@@ -9,7 +10,6 @@
 #include "pico/types.h"
 
 namespace INTERNET {
-    bool TIME_INITIETED = false;
 
     void get_time_callback(char* result) {
         uint16_t i = 0;
@@ -67,7 +67,7 @@ namespace INTERNET {
         #endif
         
         rtc_set_datetime(&t);
-        TIME_INITIETED = true;
+        CONFIG::TIME_INITIETED = true;
 
         #if INTERNET_PRINT_DEBUG
             printf("GET_TIME_END\n");
@@ -75,7 +75,7 @@ namespace INTERNET {
     }
 
     void get_time() {
-        TIME_INITIETED = false;
+        CONFIG::TIME_INITIETED = false;
         
         #if INTERNET_PRINT_DEBUG
             printf("\nGET TIME\n");
