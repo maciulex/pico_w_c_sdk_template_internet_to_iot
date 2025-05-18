@@ -44,9 +44,10 @@ namespace submodules{
             printf(BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(anwser));
         #endif
         #if CONFIG_BMP280_ENABLED
-            BMP280::init(CONFIG::i2c,false);
+            BMP280::init(&CONFIG::i2c, false);
             BMP280::setOversampling(BMP280::OVERSAMPLING_TEMPERATURE::OSRS_T_16, BMP280::OVERSAMPLING_PRESSURE::OSRS_P_16);
             BMP280::setConfigRegister(BMP280::TIME_STANDBY::t500);
+
         #endif
         #if CONFIG_DISPLAY_ENABLED
         

@@ -19,5 +19,10 @@ namespace WAR_ZONE {
 
     #endif
 
+    #if CONFIG_BMP280_ENABLED
+        int32_t bmp280_temp = -60;
+        int32_t bmp280_press= -60;
+    #endif
+
 } 
 #endif

@@ -8,8 +8,8 @@
 
     #define I2C_PROTOCOL_DEFINITION
     #define I2C_PORT i2c0
-    #define I2C_PIN_SDA    8
-    #define I2C_PIN_SCL    9
+    #define I2C_PIN_SDA    12
+    #define I2C_PIN_SCL    13
     #define I2C_SPEED 100000
 
     #define FALSE 0
@@ -19,19 +19,24 @@
 
     #define CONFIG_HARMONOGRAM_ENABLED FALSE  //Yet to be implemented
     #define CONFIG_DISPLAY_ENABLED     FALSE  //Yet to be implemented
-    #define CONFIG_DHT20_ENABLED       FALSE  //Yet to be implemented
-    #define CONFIG_BMP280_ENABLED      FALSE  //Yet to be implemented
+    #define CONFIG_DHT20_ENABLED       FALSE  //Yet to be implemented, dont have sensor to test it out
+    #define CONFIG_BMP280_ENABLED      FALSE  
 
-    #define CONFIG_DS18W20_ENABLED     TRUE  
-    #define CONFIG_ONE_WIRE_PIN 15
-    #define CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES 2
-    #define CONFIG_DS18W20_SAVE_ADDRESS TRUE //In data communication file will be 2x32bit arr for address of device
+    #define CONFIG_DS18W20_ENABLED                     FALSE  
+    #define CONFIG_ONE_WIRE_PIN                        15
+    #define CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES 1
+    #define CONFIG_DS18W20_SAVE_ADDRESS                TRUE //In data communication file will be 2x32bit arr for address of device
 
+    //PRINTS
 
-    #define INTERNET_PRINT_HTML_RESPONSE TRUE
-    #define INTERNET_PRINT_DEBUG         TRUE
+    #define CORE0_PRINT_HEARTBEAT           FALSE
+    #define CORE1_PRINT_HEARTBEAT           TRUE
 
-    #define DS18W20_PRINTS               TRUE
+    #define INTERNET_PRINT_HTML_RESPONSE    TRUE
+    #define INTERNET_PRINT_DEBUG            TRUE
+
+    #define DS18W20_PRINTS                  TRUE
+    #define CONFIG_BMP280_PRINT_AFTER_READ  TRUE
 
     struct i2c_protocol_t {
         i2c_inst_t * port;
@@ -76,8 +81,8 @@
 
         void init_i2c0() {
             i2c.port = I2C_PORT;
-            i2c.scl  = I2C_PIN_SDA;
-            i2c.sda  = I2C_PIN_SCL;
+            i2c.scl  = I2C_PIN_SCL;
+            i2c.sda  = I2C_PIN_SDA;
 
             i2c.speed = i2c_init(i2c.port, I2C_SPEED);
             i2c.initialized = true;
@@ -86,7 +91,6 @@
             gpio_set_function(i2c.scl, GPIO_FUNC_I2C);
             gpio_pull_up(i2c.sda);
             gpio_pull_up(i2c.scl); 
-
         }
         
         void init() {

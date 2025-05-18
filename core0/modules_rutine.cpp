@@ -20,6 +20,12 @@ namespace submodules{
 
         void bmp280_submodule() {
             BMP280::takeMesurment();
+            WAR_ZONE::bmp280_temp  = BMP280::temp;
+            WAR_ZONE::bmp280_press = BMP280::press;
+            #if CONFIG_BMP280_PRINT_AFTER_READ
+                printf("TEMP BMP280: %f\n", ((float) BMP280::temp/ 100));
+                printf("PRES BMP280: %i\n", BMP280::press);
+            #endif
             //you can trigger measurment using readMeasurmentsRaw()
             //it will be stored for 8 bit in lastTemp, lastPressure for 32 bit temp, press
         }

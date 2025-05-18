@@ -12,6 +12,10 @@ void core0_main() {
         submodules::rutine_submodules();
         submodules::user_rutine_submodules();
         sleep_ms(100);
+        
+        #if CORE0_PRINT_HEARTBEAT
+            printf("X");
+        #endif
     }
     return;
 }

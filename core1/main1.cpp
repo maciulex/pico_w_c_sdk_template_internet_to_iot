@@ -93,7 +93,7 @@ void core1_main() {
                     }
                 }
             }
-            #if INTERNET_PRINT_DEBUG
+            #if CORE1_PRINT_HEARTBEAT
                 printf("z");
             #endif
             watchdog_update();

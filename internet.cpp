@@ -16,6 +16,7 @@ int main()
     rtc_init();
 
     sleep_ms(3000);
+    CONFIG::init();
 
 
     if (watchdog_caused_reboot()) {

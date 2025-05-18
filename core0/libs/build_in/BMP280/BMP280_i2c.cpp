@@ -214,7 +214,7 @@ namespace BMP280 {
     }
 
     void readMeasurmentsRaw() {
-        printf("start\n");
+        //printf("start\n");
         uint8_t dataIn[6], dataOut[6];
 
         dataIn[0] =   TEMP_MESSURMENT_REGISTERS[0];
@@ -227,9 +227,9 @@ namespace BMP280 {
 
         temp= bmp280_get_comp_temp_double(tmp);
         press = bmp280_get_comp_pres_32bit(pre);
-        printf("%03" PRId32 "\n",temp);
-        printf("%03" PRId32 "\n",press);
-        printf("end\n");
+        //printf("%03" PRId32 "\n",temp);
+        //printf("%03" PRId32 "\n",press);
+        //printf("end\n");
         lastTemp[0] = (uint8_t)(temp & 0xFF);
         lastTemp[1] = (uint8_t)((temp >> 8) & 0xFF);
         lastTemp[2] = (uint8_t)((temp >> 16) & 0xFF);
@@ -257,8 +257,8 @@ namespace BMP280 {
         CTRL_MEAS_REGISTER_CONTENT[1] |= pressOversampling;
 
         
-        printf(BYTE_TO_BINARY_PATTERN,  BYTE_TO_BINARY(CTRL_MEAS_REGISTER_CONTENT[0]));
-        printf("12\n");
+        //printf(BYTE_TO_BINARY_PATTERN,  BYTE_TO_BINARY(CTRL_MEAS_REGISTER_CONTENT[0]));
+        //printf("12\n");
 
         setRegisters(CTRL_MEAS_REGISTER_CONTENT, 2);
     }
@@ -293,8 +293,8 @@ namespace BMP280 {
         uint8_t tin[1] {CTRL_MEAS_REGISTER};
         
         readRegister(tin, &CTRL_MEAS_REGISTER_CONTENT[1], 1);
-        printf(BYTE_TO_BINARY_PATTERN,  BYTE_TO_BINARY(CTRL_MEAS_REGISTER_CONTENT[0]));
-        printf("\n");
+        //printf(BYTE_TO_BINARY_PATTERN,  BYTE_TO_BINARY(CTRL_MEAS_REGISTER_CONTENT[0]));
+        //printf("\n");
 
     }
 
@@ -314,8 +314,8 @@ namespace BMP280 {
     uint8_t getStatusRegister() {
         uint8_t dIn[1] {STATUS_REGISTER}, status[1];
         readRegister(dIn, status, 1);
-        printf(BYTE_TO_BINARY_PATTERN,  BYTE_TO_BINARY(status[0]));
-        printf("\n");
+        //printf(BYTE_TO_BINARY_PATTERN,  BYTE_TO_BINARY(status[0]));
+        //printf("\n");
         return status[0];
     }
 
@@ -351,10 +351,9 @@ namespace BMP280 {
     }
 
 
-    void init(i2c_protocol_t& i2c_p, bool CE_HIGHT, bool i2cInitV = true){
-        i2c = &i2c_p;
-
-        if (!i2c->initialized) {
+    void init(i2c_protocol_t* i2c_p, bool CE_HIGHT, bool i2cInitV = true){
+        i2c = i2c_p;
+        if (!(i2c->initialized)) {
            i2cInit();
         }
 
