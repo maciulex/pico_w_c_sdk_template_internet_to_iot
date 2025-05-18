@@ -17,6 +17,15 @@
 
 void * connections_to_execute[10];
 
+bool is_connection_to_execute(void * pt) {
+    for (int i = 0; i < 10; i++) {
+        if (connections_to_execute[i] == pt) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool add_connection_to_execute(void * pt, uint8_t offset = 0) {
     for (int i = offset; i < 10; i++) {
         if (connections_to_execute[i] == nullptr) {
@@ -71,7 +80,8 @@ void core1_main() {
                         last_minute_report = time_now.min;
                     }
                 #endif
-            }
+            } 
+            
 
             if (!INTERNET::ongoing_connection) {
                 for (int i = 0; i < 10; i++) {

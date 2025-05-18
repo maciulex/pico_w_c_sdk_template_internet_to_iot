@@ -11,7 +11,7 @@ void core0_main() {
 
         submodules::rutine_submodules();
         submodules::user_rutine_submodules();
-
+        sleep_ms(100);
     }
     return;
 }

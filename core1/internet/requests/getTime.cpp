@@ -9,7 +9,6 @@
 #include "pico/util/datetime.h"
 #include "pico/types.h"
 
-#include "../../../config.cpp"
 
 namespace INTERNET {
 
@@ -55,22 +54,23 @@ namespace INTERNET {
         }
 
         datetime_t t = {
-                .year  = time[3],
-                .month = time[4],
-                .day   = time[5],
-                .dotw  = time[6], // 0 is Sunday, so 5 is Friday
-                .hour  = time[0],
-                .min   = time[1],
-                .sec   = time[2]
+                .year  = (int16_t)time[3],
+                .month = (int8_t)time[4],
+                .day   = (int8_t)time[5],
+                .dotw  = (int8_t)time[6], // 0 is Sunday, so 5 is Friday
+                .hour  = (int8_t)time[0],
+                .min   = (int8_t)time[1],
+                .sec   = (int8_t)time[2]
         };
         
         #if INTERNET_PRINT_DEBUG
             printf("\n%d %d %d %d %d %d %d\n", time[0], time[1], time[2], time[3], time[4], time[5], time[6]);
         #endif
         
-        rtc_set_datetime(&t);
-        CONFIG::TIME_INITIETED = true;
-
+        if (rtc_set_datetime(&t)) {
+            CONFIG::TIME_INITIETED = true;
+        }
+        
         #if INTERNET_PRINT_DEBUG
             printf("GET_TIME_END\n");
         #endif
@@ -83,7 +83,7 @@ namespace INTERNET {
             printf("\nGET TIME\n");
         #endif
 
-        simple_send_data("/newSystem/traffic_control.php", CONFIG::SERVER_MAIN_PATH, (void *)get_time_callback);
+        simple_send_data(CONFIG::SERVER_MAIN_PATH, "&action=getTime", (void *)get_time_callback);
     }
 
 }

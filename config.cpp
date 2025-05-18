@@ -22,12 +22,17 @@
     #define CONFIG_DHT20_ENABLED       FALSE  //Yet to be implemented
     #define CONFIG_BMP280_ENABLED      FALSE  //Yet to be implemented
 
-    #define CONFIG_DS18W20_ENABLED     FALSE  //Yet to be implemented
+    #define CONFIG_DS18W20_ENABLED     TRUE  
     #define CONFIG_ONE_WIRE_PIN 15
+    #define CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES 2
+    #define CONFIG_DS18W20_SAVE_ADDRESS TRUE //In data communication file will be 2x32bit arr for address of device
 
 
     #define INTERNET_PRINT_HTML_RESPONSE TRUE
     #define INTERNET_PRINT_DEBUG         TRUE
+
+    #define DS18W20_PRINTS               TRUE
+
     struct i2c_protocol_t {
         i2c_inst_t * port;
         uint8_t      scl;

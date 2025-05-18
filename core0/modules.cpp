@@ -54,6 +54,7 @@ namespace submodules{
         #if CONFIG_DS18W20_ENABLED
             //GP15 - Pin 20 on Pi Pico
             CONFIG::one_wire.init();
+            gpio_pull_up(CONFIG_ONE_WIRE_PIN);
             CONFIG::ds18w20_amountOfDevices = CONFIG::one_wire.find_and_count_devices_on_bus();
         #endif
     
