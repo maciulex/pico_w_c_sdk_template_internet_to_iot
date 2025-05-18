@@ -47,6 +47,7 @@ Internet
             "/newSystem/traffic_control.php"  
             Location:   
                 config.cpp: variable: std::string SERVER_MAIN_PATH
+        * BootAck: has extra header "version" with value equal to -> config.cpp - std::string PICO_VERSION
   
     RESPONSE TEXT:  
   

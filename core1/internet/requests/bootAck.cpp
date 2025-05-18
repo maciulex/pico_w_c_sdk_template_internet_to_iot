@@ -10,7 +10,7 @@ namespace INTERNET {
         #if INTERNET_PRINT_DEBUG
             printf("bootack\n");
         #endif
-        simple_send_data(CONFIG::SERVER_MAIN_PATH, "&action=bootAck");
+        simple_send_data(CONFIG::SERVER_MAIN_PATH, "&action=bootAck&version="+CONFIG::PICO_VERSION);
     }
 }
 #endif

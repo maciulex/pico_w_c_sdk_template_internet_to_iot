@@ -195,7 +195,7 @@ namespace LCD_API {
             i = active_adresss;
         } else a = address[i];
 
-        printf("old pos: x: %i y: %i \n", position[i][0], position[i][1]);
+        // printf("old pos: x: %i y: %i \n", position[i][0], position[i][1]);
         if (x == '\n') {
             if (implied_newline[i]) {
                 implied_newline[i] = false;
@@ -203,7 +203,7 @@ namespace LCD_API {
                 position[i][0] = params[i][1];
             }
         } else {
-            printf("adding one to x\n");
+            // printf("adding one to x\n");
             hal_write_data(a, (uint8_t)x);
             position[i][0] += 1;
         }
@@ -216,7 +216,7 @@ namespace LCD_API {
             position[i][1] = 0;
         }
         move_to(position[i][0], position[i][1], i);
-        printf("new pos: x: %i y: %i \n", position[i][0], position[i][1]);
+        // printf("new pos: x: %i y: %i \n", position[i][0], position[i][1]);
 
     }
 
@@ -304,7 +304,7 @@ namespace LCD_API {
     }
 
     void init_display_param(uint8_t index) {
-        printf("init params display %i addr: %i\n", index, address[index]);
+        // printf("init params display %i addr: %i\n", index, address[index]);
 
         if (params[index][0] > 4 ) params[index][0] = 4;
         if (params[index][1] > 40) params[index][1] = 40;
@@ -322,7 +322,7 @@ namespace LCD_API {
 
     void init_display(uint8_t i) {
 
-        printf("init display %i addr: %i\n", i, address[i]);
+        // printf("init display %i addr: %i\n", i, address[i]);
         uint8_t buff;
         i2c_write_blocking(i2c->port, address[i], &buff, 1, false);
         sleep_ms(20);
