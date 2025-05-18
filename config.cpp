@@ -1,10 +1,11 @@
+#ifndef CONFIG_FILE_F
+#define CONFIG_FILE_F
+
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 
 #include <string>
 #include <cstdint>
-#ifndef CONFIG_FILE_F
-#define CONFIG_FILE_F
 
     #define I2C_PROTOCOL_DEFINITION
     #define I2C_PORT i2c0
@@ -18,14 +19,16 @@
     #define INTERNET_ENABLE_AUTO_RAPORT FALSE //Yet to be implemented
 
     #define CONFIG_HARMONOGRAM_ENABLED FALSE  //Yet to be implemented
-    #define CONFIG_DISPLAY_ENABLED     FALSE  //Yet to be implemented
+    #define CONFIG_DISPLAY_ENABLED     TRUE   
     #define CONFIG_DHT20_ENABLED       FALSE  //Yet to be implemented, dont have sensor to test it out
     #define CONFIG_BMP280_ENABLED      FALSE  
+    #define CONFIG_DS18W20_ENABLED     FALSE  
 
-    #define CONFIG_DS18W20_ENABLED                     FALSE  
     #define CONFIG_ONE_WIRE_PIN                        15
     #define CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES 1
     #define CONFIG_DS18W20_SAVE_ADDRESS                TRUE //In data communication file will be 2x32bit arr for address of device
+
+    #define CONFIG_AMOUNT_OF_DISPLAYS 1
 
     //PRINTS
 

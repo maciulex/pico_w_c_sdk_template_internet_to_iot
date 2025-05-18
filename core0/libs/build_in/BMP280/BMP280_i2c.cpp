@@ -13,8 +13,8 @@
 #ifndef I2C_PROTOCOL_DEFINITION
     #define I2C_PROTOCOL_DEFINITION;
     #define I2C_PORT i2c0
-    #define I2C_PIN_SDA 4
-    #define I2C_PIN_SCL 5
+    #define I2C_PIN_SDA 12
+    #define I2C_PIN_SCL 13
     #define I2C_CLOCK 50*1000
 
     struct i2c_protocol_t {

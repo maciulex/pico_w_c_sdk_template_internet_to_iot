@@ -85,8 +85,8 @@ Processing side:
   
     built in libaries:  
         -one wire                         
-        -display 2x16 with i2c converter //in time of writing none are operating/tested  
-        -bmp280                          //in time of writing none are operating/tested  
+        -display 2x16 with i2c converter 
+        -bmp280                          
         -dht20                           //in time of writing none are operating/tested  
   
 Communication folder  

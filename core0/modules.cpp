@@ -28,7 +28,7 @@ namespace submodules{
             bmp280_submodule();
         #endif
         #if CONFIG_DISPLAY_ENABLED
-        
+            display_submodule();
         #endif
         #if CONFIG_DS18W20_ENABLED
             ds18w20_submodule();
@@ -39,7 +39,7 @@ namespace submodules{
 
     void init_submodules() {
         #if CONFIG_DHT20_ENABLED
-            DHT20::fullINIT(CONFIG::i2c);
+            DHT20::fullINIT(&CONFIG::i2c);
             uint8_t anwser = DHT20::getStatusWord();
             printf(BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(anwser));
         #endif
@@ -50,7 +50,8 @@ namespace submodules{
 
         #endif
         #if CONFIG_DISPLAY_ENABLED
-        
+            LCD_API::add_display_address(0x27, 2, 16);
+            LCD_API::init(&CONFIG::i2c, true);
         #endif
         #if CONFIG_DS18W20_ENABLED
             //GP15 - Pin 20 on Pi Pico

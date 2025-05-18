@@ -24,5 +24,8 @@ namespace WAR_ZONE {
         int32_t bmp280_press= -60;
     #endif
 
+    #if CONFIG_DISPLAY_ENABLED
+        //char8_t DISPLAY_DATA[2][16];
+    #endif
 } 
 #endif

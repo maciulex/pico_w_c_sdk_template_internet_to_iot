@@ -34,8 +34,30 @@ namespace submodules{
 
 
     #if CONFIG_DISPLAY_ENABLED
+        #include "libs/build_in/display/display.cpp"
         void display_submodule() {
-                
+            printf("runtime display 1\n");
+
+            LCD_API::clear();
+            printf("runtime display 2\n");
+
+            LCD_API::move_to(0,0);
+            printf("runtime display 3\n");
+
+            LCD_API::put_str("TEST");
+            printf("runtime display 4\n");
+
+            LCD_API::move_to(0,1);
+            printf("runtime display 5\n");
+            LCD_API::put_str("TEST2");
+
+            //LCD_API::put_str("TEST 2");
+            printf("runtime display 6\n");
+            sleep_ms(1000);
+            LCD_API::backlight_off();
+            sleep_ms(1000);
+            LCD_API::backlight_on();
+
         }
 
     #endif
