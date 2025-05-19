@@ -66,9 +66,17 @@ Internet
             hour-minute-second-year-month-day-day_of_the week  
             <||> signals start and end of data  
   
-  
+    LISTENING:
+        pico can recive request from web on port 80
+        path: core1/internet/incoming/get_param_processing.cpp ->process_get_request (std::string head_name, std::string head_value)
+            head_name -> name of parameter
+            head_value-> value of parameter
+
+            return string that will be forwarded back to requester
+        
+
+
     todo:  
-        - server send some basic comands to device  
         - Moving watchdog to core0 (explanation in Watchdog header)  
   
 Processing side:  

@@ -54,9 +54,9 @@ namespace submodules{
             //LCD_API::put_str("TEST 2");
             // printf("runtime display 6\n");
             sleep_ms(1000);
-            LCD_API::backlight_off();
-            sleep_ms(1000);
-            LCD_API::backlight_on();
+            // LCD_API::backlight_off();
+            // sleep_ms(1000);
+            // LCD_API::backlight_on();
 
         }
 

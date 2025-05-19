@@ -4,6 +4,7 @@
 #include "hardware/watchdog.h"
 #include "internet/connection.cpp"
 #include "internet/request.cpp"
+#include "internet/incoming.cpp"
 
 #include "internet/requests/bootAck.cpp"
 #include "internet/requests/getTime.cpp"
@@ -37,7 +38,8 @@ bool add_connection_to_execute(void * pt, uint8_t offset = 0) {
 }
 
 void core1_main() {
-    bool boot_ack = false;
+    bool boot_ack      = false;
+    bool server_status = false;
 
     if (cyw43_arch_init()) {
         printf("Wi-Fi init failed\n");
@@ -67,7 +69,11 @@ void core1_main() {
             INTERNET::connect_to_network();
         } else {
             sleep_ms(50);
-            
+            if (!server_status) {
+                INTERNET::start_server();
+                server_status = true;
+            }
+
             if (CONFIG::TIME_INITIETED) {
                 rtc_get_datetime(&time_now);
                 if (time_now.min % CONFIG::PING_TIME   == 0 && time_now.min != last_minute_ping) {

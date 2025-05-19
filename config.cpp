@@ -60,7 +60,7 @@
 
         const uint8_t          PICO_ID = 7;
         const char*          PICO_DESC = "c_test_dev";
-        std::string       PICO_VERSION = "0.70";
+        std::string       PICO_VERSION = "0.71";
         std::string PICO_REQUEST_HEADER= "?pico_id="+std::to_string(PICO_ID)+"&pico_desc="+PICO_DESC;    
 
         std::string SERVER_MAIN_PATH = "/newSystem/traffic_control.php";
