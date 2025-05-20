@@ -6,8 +6,8 @@
 #include "pico/multicore.h"
 #include "hardware/rtc.h"
 
-#include "core0/main0.cpp"
 #include "core1/main1.cpp"
+#include "core0/main0.cpp"
 
 
 int main()

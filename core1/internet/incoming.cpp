@@ -37,7 +37,6 @@ namespace INTERNET {
         if (ptr != NULL) {
             ptr+=5;
             while (*ptr != '\0') {
-
                 if (*ptr == '?' || *ptr == '&' || *ptr == ' ') {
                     header_started = true;
                     if (head_name.length() > 0) 

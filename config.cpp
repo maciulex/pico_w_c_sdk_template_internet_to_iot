@@ -16,6 +16,8 @@
     #define FALSE 0
     #define TRUE  1
 
+    #define CONFIG_ON_CORE_1_STUCK 1 // 1 -> reboot board, 2->reboot only core
+
     #define INTERNET_ENABLE_AUTO_RAPORT FALSE //Yet to be implemented
 
     #define CONFIG_HARMONOGRAM_ENABLED FALSE  //Yet to be implemented
@@ -60,7 +62,7 @@
 
         const uint8_t          PICO_ID = 7;
         const char*          PICO_DESC = "c_test_dev";
-        std::string       PICO_VERSION = "0.71";
+        std::string       PICO_VERSION = "0.73";
         std::string PICO_REQUEST_HEADER= "?pico_id="+std::to_string(PICO_ID)+"&pico_desc="+PICO_DESC;    
 
         std::string SERVER_MAIN_PATH = "/newSystem/traffic_control.php";

@@ -1,6 +1,3 @@
-
-
-
 #include "hardware/watchdog.h"
 #include "internet/connection.cpp"
 #include "internet/request.cpp"
@@ -11,12 +8,12 @@
 #include "internet/requests/ping.cpp"
 #include "internet/requests/report.cpp"
 
-
 #include "hardware/rtc.h"
 #include "pico/stdlib.h"
 #include "pico/util/datetime.h"
 
 void * connections_to_execute[10];
+uint32_t core1_counter = 0;
 
 bool is_connection_to_execute(void * pt) {
     for (int i = 0; i < 10; i++) {
@@ -67,13 +64,17 @@ void core1_main() {
         //printf("Hello, worlds!\n");
         if (!INTERNET::INTERNET_CONNECTION) {
             INTERNET::connect_to_network();
-        } else {
-            sleep_ms(50);
+            core1_counter += 1;
             if (!server_status) {
+                core1_counter += 1;
                 INTERNET::start_server();
                 server_status = true;
             }
-
+            last_minute_ping   = time_now.min;
+            last_minute_report = time_now.min;
+            core1_counter += 1;
+        } else {
+            sleep_ms(50);
             if (CONFIG::TIME_INITIETED) {
                 rtc_get_datetime(&time_now);
                 if (time_now.min % CONFIG::PING_TIME   == 0 && time_now.min != last_minute_ping) {
@@ -102,9 +103,8 @@ void core1_main() {
             #if CORE1_PRINT_HEARTBEAT
                 printf("z");
             #endif
-            watchdog_update();
         }
-        
+        core1_counter += 1;
         cyw43_arch_poll(); // ważne w NO_SYS=1
 
     }

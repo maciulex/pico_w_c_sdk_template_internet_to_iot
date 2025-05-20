@@ -73,6 +73,8 @@ Internet
             head_value-> value of parameter
 
             return string that will be forwarded back to requester
+        //todo 
+            Basic functionalities build in
         
 
 
@@ -115,7 +117,23 @@ Time
     if triggered is fuction to dowload time again this flag will be turned to false  
     until time is properly dowloaded and interpreted  
   
-  
+UPDATES
+    As project is rapidly improving i though how hard would be to update already written app
+    To adress it there i added folders/files that will not be edited by updates and could be used to progress faster
+    core0:
+        core0/libs/user/     // folder for libs installed by user
+        core0/user_modules
+            /modules_runtine.cpp //file designed to contain functions that will be run periodicly on core0
+            /modules.cpp
+                user_init_submodules()   // will be executed on startup of core0
+                user_rutine_submodules() // will be executed in infinite loop
+                //they will be run after build in functions
+
+    core1:
+        core1/internet/incoming/get_param_processing_user.cpp -> user_process_get_request(std::string head_name, std::string head_value)
+            this function will be executed if build in featurs cannot resolve GET request
+        
+
 There is massive room to improve and add multiple of features, but honestly i deeply doubt that anyone will read this  
 let alone use this template so i really dont know how much will and work i should put to document, explain, and go   above what i really need to meet somthing that someone could use
   
