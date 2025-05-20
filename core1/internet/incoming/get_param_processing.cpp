@@ -5,7 +5,7 @@
 #include <string>
 #include <cstring>
 #include "../../../config.cpp"
-#include "get_param_processing_user.cpp"
+#include "../../../user/core1/get_param_processing_user.cpp"
 namespace INTERNET {
 
 

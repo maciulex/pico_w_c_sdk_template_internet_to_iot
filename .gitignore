@@ -1,4 +1,4 @@
 build
 .vscode
 pico_sdk_import.cmake
-core1/internet/secret.cpp
+user/core1/secret/secret.cpp

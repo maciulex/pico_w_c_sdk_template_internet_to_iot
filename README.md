@@ -23,7 +23,7 @@ Internet
     build in tasks: bootack, time, ping are by deafult executed  
   
     Network credentials:  
-        Location: core1/internet/secret.cpp  
+        Location: user/core1/secret/secret.cpp  
         You can programm multiple network ssid and passwords  
         That helps with mobility and networking  
           
@@ -68,11 +68,12 @@ Internet
   
     LISTENING:
         pico can recive request from web on port 80
-        path: core1/internet/incoming/get_param_processing.cpp ->process_get_request (std::string head_name, std::string head_value)
+        path: user/core1/get_param_processing_user.cpp ->user_process_get_request (std::string head_name, std::string head_value)
             head_name -> name of parameter
             head_value-> value of parameter
 
             return string that will be forwarded back to requester
+
         //todo 
             Basic functionalities build in
         
@@ -87,8 +88,8 @@ Processing side:
     libary folder is: core0/libs/lib_name  
   
     After startup:  
-        -> Initialization of module:       core0/modules.cpp -> init_submodules();  
-        -> Execute rutine of every module: core0/modules.cpp -> rutine_submodules();  
+        -> Initialization of module:       user/core0/modules/modules.cpp -> init_submodules();  
+        -> Execute rutine of every module: user/core0/modules/modules.cpp -> rutine_submodules();  
       
     rutine_submodules() is invoked in core0/main0.cpp where is located main loop of core  
       
@@ -106,9 +107,12 @@ Communication folder
         -If it is variable longer then 32bit, struct, array, etc, you should program some sort of flag that will tell   other core to not touch this set of data to ensure peacufull reading/writing
   
 Watchdog  
-    Watchdog is operated for now by core1 to ensure that internet connection is stable and there is no critical errors  
-    this will be moved to core0.  
-    in that scenario core1 will have own counter. and core0 will periocily check this counter to check if core1 got   stuck.
+    watchdog is located in core0 deafult watchdog timeout is 8sec
+    core1 have counter that increments every loop cycle.
+    if core0 check core1 counter and discovers it is same for more then 5 times then one of following will be executed
+        1: Whole board reset
+        2: core1 reset by multicore function
+    that can be changed in config editing #define CONFIG_ON_CORE_1_STUCK
   
 Time   
     If server sucessfully dowloads time from server it should set flag   
@@ -120,18 +124,8 @@ Time
 UPDATES
     As project is rapidly improving i though how hard would be to update already written app
     To adress it there i added folders/files that will not be edited by updates and could be used to progress faster
-    core0:
-        core0/libs/user/     // folder for libs installed by user
-        core0/user_modules
-            /modules_runtine.cpp //file designed to contain functions that will be run periodicly on core0
-            /modules.cpp
-                user_init_submodules()   // will be executed on startup of core0
-                user_rutine_submodules() // will be executed in infinite loop
-                //they will be run after build in functions
+        user/
 
-    core1:
-        core1/internet/incoming/get_param_processing_user.cpp -> user_process_get_request(std::string head_name, std::string head_value)
-            this function will be executed if build in featurs cannot resolve GET request
         
 
 There is massive room to improve and add multiple of features, but honestly i deeply doubt that anyone will read this  

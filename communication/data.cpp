@@ -2,6 +2,7 @@
 #define COMMUNICATION_DATA_F
 
 #include "../config.cpp"
+#include "../user/data.cpp"
 
 namespace WAR_ZONE {
 

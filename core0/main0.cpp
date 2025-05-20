@@ -1,7 +1,7 @@
 #include "hardware/watchdog.h"
 
 #include "modules.cpp"
-#include "user_modules/modules.cpp"
+#include "../../../user/core0/modules/modules.cpp"
 
 void core0_main() {
     submodules::init_submodules();

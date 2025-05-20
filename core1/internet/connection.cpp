@@ -2,7 +2,7 @@
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
 
-#include "secret.cpp"
+#include "../../user/core1/secret/secret.cpp"
 
 
 namespace INTERNET {
