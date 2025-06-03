@@ -59,6 +59,7 @@ target_include_directories(internet PRIVATE
 # Add any user requested libraries
 target_link_libraries(internet 
         hardware_i2c
+        hardware_uart
         hardware_watchdog
         pico_multicore
         pico_one_wire

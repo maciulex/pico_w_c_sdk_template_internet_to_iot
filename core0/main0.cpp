@@ -8,20 +8,20 @@ void core0_main() {
     submodules::user_init_submodules();
     uint32_t core1_last_counter = 0;
     uint8_t  core1_strike       = 0;
+    bool last_time_init = CONFIG::TIME_INITIETED;
     while (true) {
-
-        submodules::rutine_submodules();
-        watchdog_update();
-        submodules::user_rutine_submodules();
-        sleep_ms(100);
+        
+        datetime_t time_now;
+        rtc_get_datetime(&time_now);
+        time_t this_cycle_time = get_mktime(&time_now);
         
         #if CORE0_PRINT_HEARTBEAT
             printf("X");
         #endif
-        if (core1_last_counter == core1_counter) {
-            core1_strike += 1;
-            printf("core1 lock strike \n");
-            if (core1_strike > 5) {
+
+        if (this_cycle_time > 0 && CONFIG::core1_last_activity > 0 && this_cycle_time >= CONFIG::core1_last_activity ) {
+            if (this_cycle_time-CONFIG::core1_last_activity > 60 && last_time_init == CONFIG::TIME_INITIETED) { // 60 SEC
+                printf("60 SEC UP RESSETING \n");
                 #if CONFIG_ON_CORE_1_STUCK == 1
                     while (true) continue; // reboot board by watchdog
                 #endif
@@ -29,10 +29,19 @@ void core0_main() {
                     multicore_reset_core1();
                 #endif
             }
-        } else{
-            core1_strike = 0;
+        } else {
+            printf("this cycle: %lld\n\n", (long long) this_cycle_time);
+            printf("last activity: %lld\n\n", (long long) CONFIG::core1_last_activity);
+
+            printf("\n\ntime error\n\n");
         }
-        core1_last_counter = core1_counter;
+        last_time_init = CONFIG::TIME_INITIETED;
+
+        submodules::rutine_submodules(this_cycle_time);
+        watchdog_update();
+        submodules::user_rutine_submodules(this_cycle_time);
+        watchdog_update();
+        sleep_ms(100);
         watchdog_update();
     }
     return;

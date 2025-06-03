@@ -32,6 +32,12 @@ namespace submodules{
 
     #endif
 
+    #if CONFIG_PZEM004_ENABLED
+        #include "libs/build_in/pzem/pzem.cpp"
+        void pzem_submodule() {
+            pzem::test();
+        }
+    #endif
 
     #if CONFIG_DISPLAY_ENABLED
         #include "libs/build_in/display/display.cpp"

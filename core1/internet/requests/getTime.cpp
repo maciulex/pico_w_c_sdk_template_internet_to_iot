@@ -70,7 +70,7 @@ namespace INTERNET {
         if (rtc_set_datetime(&t)) {
             CONFIG::TIME_INITIETED = true;
         }
-        
+        core1_watch_dog();
         #if INTERNET_PRINT_DEBUG
             printf("GET_TIME_END\n");
         #endif

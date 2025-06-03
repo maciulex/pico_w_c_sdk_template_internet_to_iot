@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
-
+#include "../../config.cpp"
 #include "../../user/core1/secret/secret.cpp"
 
 
@@ -15,7 +15,7 @@ namespace INTERNET {
         printf(pass);
 
         printf("Network: Connecting to Wi-Fi...\n");
-        uint8_t code = cyw43_arch_wifi_connect_timeout_ms(ssid, pass, CYW43_AUTH_WPA2_AES_PSK, 30000);
+        uint8_t code = cyw43_arch_wifi_connect_timeout_ms(ssid, pass, CYW43_AUTH_WPA2_AES_PSK, 1000*15);
         printf("Network: connection code %d", code);
         if (code != 0) {
             printf("Network: failed to connect.\n");
@@ -32,6 +32,7 @@ namespace INTERNET {
     bool connect_to_network() {
         cyw43_arch_enable_sta_mode();
         for (int i = 0; i < possible_networks; i++) {
+            core1_watch_dog();
             INTERNET_CONNECTION = create_connection(network_ssid[i], network_pass[i]);
             if (INTERNET_CONNECTION) {
                 return INTERNET_CONNECTION;

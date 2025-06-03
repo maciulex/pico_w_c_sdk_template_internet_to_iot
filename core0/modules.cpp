@@ -2,8 +2,9 @@
 #define MODULES_BUILD_IN_F
 
 #include "../config.cpp"
+#include "hardware/rtc.h"
 #include "modules_rutine.cpp"
-
+#include <time.h>   
 #ifndef INT_TO_BIN
 #define INT_TO_BIN
     #define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
@@ -20,7 +21,25 @@
 
 namespace submodules{
 
-    void rutine_submodules() {
+    #if CONFIG_DHT20_ENABLED
+        time_t DHT20_LAST_EXECUTED = 0;
+    #endif
+    #if CONFIG_BMP280_ENABLED
+        time_t BMP280__LAST_EXECUTED = 0;
+    #endif
+    #if CONFIG_DISPLAY_ENABLED
+        time_t DISPLAY_LAST_EXECUTED = 0;
+    #endif
+    #if CONFIG_DS18W20_ENABLED
+        time_t DS18W20_LAST_EXECUTED = 0;
+    #endif
+    #if CONFIG_PZEM004_ENABLED
+        time_t PZEM004_LAST_EXECUTED = 0;
+    #endif
+
+    void rutine_submodules(time_t timeabsolute) {
+
+        // printf("now = %ld, last = %ld, diff = %ld\n", timeabsolute, PZEM004_LAST_EXECUTED, timeabsolute - PZEM004_LAST_EXECUTED);
         #if CONFIG_DHT20_ENABLED
             dht_20_submodule();
         #endif
@@ -31,10 +50,16 @@ namespace submodules{
             display_submodule();
         #endif
         #if CONFIG_DS18W20_ENABLED
-            ds18w20_submodule();
 
+            ds18w20_submodule();
         #endif
-    
+        #if CONFIG_PZEM004_ENABLED
+            if(timeabsolute-PZEM004_LAST_EXECUTED > 30) {
+                pzem_submodule();
+                sleep_ms(3000);
+                PZEM004_LAST_EXECUTED = timeabsolute;
+            }
+        #endif
     }
 
     void init_submodules() {
@@ -59,7 +84,9 @@ namespace submodules{
             gpio_pull_up(CONFIG_ONE_WIRE_PIN);
             CONFIG::ds18w20_amountOfDevices = CONFIG::one_wire.find_and_count_devices_on_bus();
         #endif
-    
+        #if CONFIG_PZEM004_ENABLED
+            pzem::init(&CONFIG::uart);
+        #endif
     }
 }   
 #endif

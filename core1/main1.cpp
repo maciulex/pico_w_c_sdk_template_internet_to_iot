@@ -13,7 +13,6 @@
 #include "pico/util/datetime.h"
 
 void * connections_to_execute[10];
-uint32_t core1_counter = 0;
 
 bool is_connection_to_execute(void * pt) {
     for (int i = 0; i < 10; i++) {
@@ -33,6 +32,8 @@ bool add_connection_to_execute(void * pt, uint8_t offset = 0) {
     }
     return false;
 }
+
+
 
 void core1_main() {
     bool boot_ack      = false;
@@ -64,15 +65,15 @@ void core1_main() {
         //printf("Hello, worlds!\n");
         if (!INTERNET::INTERNET_CONNECTION) {
             INTERNET::connect_to_network();
-            core1_counter += 1;
+            core1_watch_dog();
             if (!server_status) {
-                core1_counter += 1;
+                core1_watch_dog();
                 INTERNET::start_server();
                 server_status = true;
             }
             last_minute_ping   = time_now.min;
             last_minute_report = time_now.min;
-            core1_counter += 1;
+            core1_watch_dog();
         } else {
             sleep_ms(50);
             if (CONFIG::TIME_INITIETED) {
@@ -104,7 +105,7 @@ void core1_main() {
                 printf("z");
             #endif
         }
-        core1_counter += 1;
+        core1_watch_dog();
         cyw43_arch_poll(); // ważne w NO_SYS=1
 
     }
