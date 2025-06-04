@@ -14,14 +14,14 @@
 
     #define CONFIG_ON_CORE_1_STUCK 1 // 1 -> reboot board, 2->reboot only core
 
-    #define INTERNET_ENABLE_AUTO_RAPORT TRUE //Yet to be implemented
+    #define INTERNET_ENABLE_AUTO_RAPORT FALSE //Yet to be implemented
 
     #define CONFIG_HARMONOGRAM_ENABLED FALSE  //Yet to be implemented
-    #define CONFIG_DISPLAY_ENABLED     TRUE   
+    #define CONFIG_DISPLAY_ENABLED     FALSE   
     #define CONFIG_DHT20_ENABLED       FALSE  //Yet to be implemented, dont have sensor to test it out
     #define CONFIG_BMP280_ENABLED      FALSE  
-    #define CONFIG_DS18W20_ENABLED     TRUE  
-    #define CONFIG_PZEM004_ENABLED     TRUE
+    #define CONFIG_DS18W20_ENABLED     FALSE  
+    #define CONFIG_PZEM004_ENABLED     FALSE
 
     #define CONFIG_ONE_WIRE_PIN                        15
     #define CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES 1
@@ -32,13 +32,13 @@
     //PRINTS
 
     #define CORE0_PRINT_HEARTBEAT           FALSE
-    #define CORE1_PRINT_HEARTBEAT           TRUE
+    #define CORE1_PRINT_HEARTBEAT           FALSE
 
-    #define INTERNET_PRINT_HTML_RESPONSE    TRUE
-    #define INTERNET_PRINT_DEBUG            TRUE
+    #define INTERNET_PRINT_HTML_RESPONSE    FALSE
+    #define INTERNET_PRINT_DEBUG            FALSE
 
-    #define DS18W20_PRINTS                  TRUE
-    #define CONFIG_BMP280_PRINT_AFTER_READ  TRUE
+    #define DS18W20_PRINTS                  FALSE
+    #define CONFIG_BMP280_PRINT_AFTER_READ  FALSE
     
     #define I2C_ENABLE  (USER_DECLARE_I2C  || CONFIG_DISPLAY_ENABLED || CONFIG_DHT20_ENABLED || CONFIG_BMP280_ENABLED)
     #define UART_ENABLE (USER_DECLARE_UART || CONFIG_PZEM004_ENABLED)
