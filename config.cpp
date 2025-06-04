@@ -14,7 +14,7 @@
 
     #define CONFIG_ON_CORE_1_STUCK 1 // 1 -> reboot board, 2->reboot only core
 
-    #define INTERNET_ENABLE_AUTO_RAPORT FALSE //Yet to be implemented
+    #define INTERNET_ENABLE_AUTO_RAPORT TRUE //Yet to be implemented
 
     #define CONFIG_HARMONOGRAM_ENABLED FALSE  //Yet to be implemented
     #define CONFIG_DISPLAY_ENABLED     TRUE   
@@ -32,10 +32,10 @@
     //PRINTS
 
     #define CORE0_PRINT_HEARTBEAT           FALSE
-    #define CORE1_PRINT_HEARTBEAT           FALSE
+    #define CORE1_PRINT_HEARTBEAT           TRUE
 
-    #define INTERNET_PRINT_HTML_RESPONSE    FALSE
-    #define INTERNET_PRINT_DEBUG            FALSE
+    #define INTERNET_PRINT_HTML_RESPONSE    TRUE
+    #define INTERNET_PRINT_DEBUG            TRUE
 
     #define DS18W20_PRINTS                  TRUE
     #define CONFIG_BMP280_PRINT_AFTER_READ  TRUE
@@ -83,7 +83,7 @@
         };
     #endif
     #if CONFIG_DS18W20_ENABLED
-        #include "core0/libs/build_in/one_wire/api/one_wire.h"
+        #include "user/core0/libs/build_in/one_wire/api/one_wire.h"
     #endif
     
     
@@ -91,7 +91,7 @@
 
         const uint8_t          PICO_ID = 7;
         const char*          PICO_DESC = "c_test_dev";
-        std::string       PICO_VERSION = "0.74";
+        std::string       PICO_VERSION = "0.75";
         std::string PICO_REQUEST_HEADER= "?pico_id="+std::to_string(PICO_ID)+"&pico_desc="+PICO_DESC;    
 
         std::string SERVER_MAIN_PATH = "/newSystem/traffic_control.php";

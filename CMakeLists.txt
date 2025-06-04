@@ -32,7 +32,7 @@ project(internet C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
-add_subdirectory(core0/libs/build_in/one_wire)
+add_subdirectory(user/core0/libs/build_in/one_wire)
 # Add executable. Default name is the project name, version 0.1
 
 add_executable(internet 

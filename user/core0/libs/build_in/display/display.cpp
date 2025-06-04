@@ -3,7 +3,7 @@
 
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
-#include "../../../config.cpp"
+#include "../../../../../config.cpp"
 
 #ifndef I2C_PROTOCOL_DEFINITION
     #define I2C_PROTOCOL_DEFINITION;

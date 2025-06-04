@@ -6,6 +6,9 @@
 #include <cstring>
 #include "../../../config.cpp"
 #include "../../../user/core1/get_param_processing_user.cpp"
+#if CONFIG_PZEM004_ENABLED
+    #include "../../../user/core0/libs/build_in/pzem/pzem.cpp"
+#endif
 namespace INTERNET {
 
 
@@ -15,7 +18,15 @@ namespace INTERNET {
         if (strncmp(head_name.c_str(), "resetTime" , 9)) {
             CONFIG::TIME_INITIETED = false;
         }
-
+        #if CONFIG_PZEM004_ENABLED
+            if (head_name == "pzem_reset_power") {
+                if (pzem::reset()) {
+                    printf("reset done good\n");
+                } else {
+                    printf("reset somthing gone wrong\n");
+                }
+            }
+        #endif
         return user_process_get_request(head_name, head_value);
     }
 }

@@ -99,6 +99,7 @@ Processing side:
         -one wire                         
         -display 2x16 with i2c converter 
         -bmp280                          
+        -pzem004
         -dht20                           //in time of writing none are operating/tested  
   
 Communication folder  

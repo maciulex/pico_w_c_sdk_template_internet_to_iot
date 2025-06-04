@@ -55,17 +55,43 @@ namespace pzem {
     }
 
     bool reset() {
+        setResetCRC();
         if (!uart_is_writable(uart->port)) {
+            printf("uart not writable\n");
             return false;
         }
         uart_write_blocking(uart->port, resetCommand, 4);
-        if (uart_is_readable_within_us(uart->port, 2500)) {
+        if (uart_is_readable_within_us(uart->port, 255000)) {
             uint8_t resp[6]; 
-            uart_read_blocking(uart->port, resp, 6);
-            if (resp[2] == 0x42) {
-                return true;
+            uart_read_blocking(uart->port, resp, 4);
+            switch (resp[2]) {
+                case 0x42:
+                    return true;
+                break;
+                case 0x01:
+                    printf("pzem communication error illegal function: %i\n", resp[2]);
+                    return false;
+                break;
+                case 0x02:
+                    printf("pzem communication error illegal address: %i\n", resp[2]);
+                    return false;
+                break;
+                case 0x03:
+                    printf("pzem communication error illegal data: %i\n", resp[2]);
+                    return false;
+                break;
+                case 0x04:
+                    printf("pzem communication error slave error: %i\n", resp[2]);
+                    return false;
+                break;
+                default:
+                    printf("response unknown\n");
+                    return false;
+                break;
             }
+
         }
+        printf("uart not readable\n");
         return false;
     }
 
@@ -75,7 +101,7 @@ namespace pzem {
             return;
         }
         uart_write_blocking(uart->port, toSend, 8);
-        if (uart_is_readable_within_us(uart->port, 2500)) {
+        if (uart_is_readable_within_us(uart->port, 80000)) {
             uart_read_blocking(uart->port, REGISTERS_LAST, 25);
             if (REGISTERS_LAST[0] != Address || REGISTERS_LAST[1] != 0x04) {
                 lastCorrect = false;

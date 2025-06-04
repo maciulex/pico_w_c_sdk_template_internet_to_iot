@@ -1,13 +1,13 @@
 #ifndef MODULES_RUTINE_F
 #define MODULES_RUTINE_F
 
-#include "../../../config.cpp"
-#include "../../../communication/data.cpp"
+#include "../../../../../config.cpp"
+#include "../../../../../communication/data.cpp"
 
 namespace submodules{
 
     #if CONFIG_DHT20_ENABLED
-        #include "libs/build_in/dht20/dht20.cpp"
+        #include "../../libs/build_in/dht20/dht20.cpp"
         void dht_20_submodule() {
 
             DHT20::getMeasurement();
@@ -16,7 +16,7 @@ namespace submodules{
     #endif
 
     #if CONFIG_BMP280_ENABLED
-        #include "libs/build_in/BMP280/BMP280_I2C.cpp"
+        #include "../../libs/build_in/BMP280/BMP280_I2C.cpp"
 
         void bmp280_submodule() {
             BMP280::takeMesurment();
@@ -33,14 +33,14 @@ namespace submodules{
     #endif
 
     #if CONFIG_PZEM004_ENABLED
-        #include "libs/build_in/pzem/pzem.cpp"
+        #include "../../libs/build_in/pzem/pzem.cpp"
         void pzem_submodule() {
             pzem::test();
         }
     #endif
 
     #if CONFIG_DISPLAY_ENABLED
-        #include "libs/build_in/display/display.cpp"
+        #include "../../libs/build_in/display/display.cpp"
         void display_submodule() {
             // printf("runtime display 1\n");
 
@@ -69,7 +69,7 @@ namespace submodules{
     #endif
 
     #if CONFIG_DS18W20_ENABLED
-        #include "libs/build_in/one_wire/api/one_wire.h"
+        #include "../../libs/build_in/one_wire/api/one_wire.h"
         void  ds18w20_submodule() {
             if (CONFIG::ds18w20_amountOfDevices < CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES) {
                 CONFIG::one_wire.init();
@@ -82,7 +82,7 @@ namespace submodules{
             #endif
             for (int i = 0; i < CONFIG_ONE_WIRE_EXPECTED_AMOUNT_OF_DEVICES; i++) {
                 if (i >= CONFIG::ds18w20_amountOfDevices) {
-                    WAR_ZONE::dst18w20_temp[i] = -60;
+                    WAR_ZONE::dst18w20_temp[i] = -1000;
                     continue;
                 }
                 CONFIG::ds18w20_address = CONFIG::one_wire.get_address(i);

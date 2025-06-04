@@ -1,6 +1,6 @@
 #include "hardware/watchdog.h"
 
-#include "modules.cpp"
+#include "../../../user/core0/modules/build_in/modules.cpp"
 #include "../../../user/core0/modules/modules.cpp"
 
 void core0_main() {
@@ -30,7 +30,7 @@ void core0_main() {
                 #endif
             }
         } else {
-            printf("this cycle: %lld\n\n", (long long) this_cycle_time);
+                    printf("this cycle: %lld\n\n", (long long) this_cycle_time);
             printf("last activity: %lld\n\n", (long long) CONFIG::core1_last_activity);
 
             printf("\n\ntime error\n\n");
