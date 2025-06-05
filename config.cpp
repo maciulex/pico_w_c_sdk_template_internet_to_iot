@@ -106,6 +106,7 @@
         uint8_t PING_TIME   = 1;//MINS
 
         time_t core1_last_activity = 0;
+        bool lock_core1_last_activity = false;
         
         #if CONFIG_DS18W20_ENABLED
             One_wire one_wire(CONFIG_ONE_WIRE_PIN); 
@@ -181,7 +182,10 @@
     void core1_watch_dog() {
         datetime_t time_now;
         rtc_get_datetime(&time_now);
+        while (CONFIG::lock_core1_last_activity) continue;
+        CONFIG::lock_core1_last_activity = true;
         CONFIG::core1_last_activity = get_mktime(&time_now);
+        CONFIG::lock_core1_last_activity = false;
     }
     #ifndef INT_TO_BIN
     #define INT_TO_BIN

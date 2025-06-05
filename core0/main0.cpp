@@ -3,6 +3,33 @@
 #include "../../../user/core0/modules/build_in/modules.cpp"
 #include "../../../user/core0/modules/modules.cpp"
 
+time_t last_lock_check = 0;
+void check_if_core_1_locked(time_t * this_cycle_time) {
+    if (last_lock_check != 0 || *this_cycle_time-last_lock_check<9) return;
+    last_lock_check = *this_cycle_time;
+    
+    while (CONFIG::lock_core1_last_activity) continue;
+    CONFIG::lock_core1_last_activity = true;
+    
+    if (*this_cycle_time > 0 && CONFIG::core1_last_activity > 0 && 
+        *this_cycle_time >= CONFIG::core1_last_activity && *this_cycle_time-3000000 < CONFIG::core1_last_activity ) {
+        if (*this_cycle_time-CONFIG::core1_last_activity > 60) { // 60 SEC
+            printf("60 SEC UP RESSETING \n");
+            #if CONFIG_ON_CORE_1_STUCK == 1
+                while (true) continue; // reboot board by watchdog
+            #endif
+            #if CONFIG_ON_CORE_1_STUCK == 2
+                multicore_reset_core1();
+            #endif
+        }
+    } else {
+        printf("this cycle: %lld\n\n", (long long) *this_cycle_time);
+        printf("last activity: %lld\n\n", (long long) CONFIG::core1_last_activity);
+        printf("\n\ntime error\n\n");
+    }
+    CONFIG::lock_core1_last_activity = false;
+}
+
 void core0_main() {
     submodules::init_submodules();
     submodules::user_init_submodules();
@@ -18,30 +45,13 @@ void core0_main() {
         #if CORE0_PRINT_HEARTBEAT
             printf("X");
         #endif
-
-        if (this_cycle_time > 0 && CONFIG::core1_last_activity > 0 && this_cycle_time >= CONFIG::core1_last_activity ) {
-            if (this_cycle_time-CONFIG::core1_last_activity > 60 && last_time_init == CONFIG::TIME_INITIETED) { // 60 SEC
-                printf("60 SEC UP RESSETING \n");
-                #if CONFIG_ON_CORE_1_STUCK == 1
-                    while (true) continue; // reboot board by watchdog
-                #endif
-                #if CONFIG_ON_CORE_1_STUCK == 2
-                    multicore_reset_core1();
-                #endif
-            }
-        } else {
-                    printf("this cycle: %lld\n\n", (long long) this_cycle_time);
-            printf("last activity: %lld\n\n", (long long) CONFIG::core1_last_activity);
-
-            printf("\n\ntime error\n\n");
-        }
-        last_time_init = CONFIG::TIME_INITIETED;
-
+        
+        watchdog_update();
+        check_if_core_1_locked(&this_cycle_time);
+        watchdog_update();
         submodules::rutine_submodules(this_cycle_time);
         watchdog_update();
         submodules::user_rutine_submodules(this_cycle_time);
-        watchdog_update();
-        sleep_ms(100);
         watchdog_update();
     }
     return;

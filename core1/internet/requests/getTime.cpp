@@ -68,6 +68,7 @@ namespace INTERNET {
         #endif
         
         if (rtc_set_datetime(&t)) {
+            core1_watch_dog();
             CONFIG::TIME_INITIETED = true;
         }
         core1_watch_dog();
